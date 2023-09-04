@@ -31,5 +31,8 @@ function clearBoard() {
         input.value = "";
       }
     });
+
+    console.log("Board cleared.");
+
   }
   
