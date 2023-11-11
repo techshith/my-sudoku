@@ -27,12 +27,11 @@ createGrid();
 function clearBoard() {
     const inputs = grid.querySelectorAll("input");
     inputs.forEach(input => {
-      if (input.value !== "") {
-        input.value = "";
-      }
+      input.value = ""; // clear value
+      input.classList.remove("correct", "incorrect"); // remove color classes
+      input.style.color = "";       // reset inline styles (optional)
+      input.style.borderColor = ""; // reset borders if used
     });
-
-    console.log("Board cleared.");
-
-  }
   
+    console.log("Board cleared.");
+}  
