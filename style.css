@@ -30,6 +30,7 @@ body {
     text-align: center;
     font-size: 18px;
     border: 1px solid #ccc;
+    transition: border 0.2s;
   }
   
   .grid input:focus {
@@ -54,3 +55,7 @@ body {
     font-weight: bold;
   }
   
+  .grid input:hover {
+    border-color: #888;
+    cursor: pointer;
+  }
