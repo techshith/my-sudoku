@@ -24,7 +24,54 @@ board = [
     [0, 0, 0, 0, 8, 0, 0, 7, 9]
 ]
 
-def draw_grid(win):
+font = pygame.font.SysFont("comicsans", 40)
+
+def draw_grid(win, board, selected):
     gap = WIDTH // 9
+    for i in range(9):
+        for j in range(9):
+            x = j * gap
+            y = i * gap
+            if board[i][j] != 0:
+                text = font.render(str(board[i][j]), True, BLACK)
+                win.blit(text, (x + 15, y + 10))
+            if selected == (i, j):
+                pygame.draw.rect(win, (255, 0, 0), (x, y, gap, gap), 3)
+
     for i in range(10):
-        thick =
+        thick = 3 if i % 3 == 0 else 1
+        pygame.draw.line(win, BLACK, (0, i * gap), (WIDTH, i * gap), thick)
+        pygame.draw.line(win, BLACK, (i * gap, 0), (i * gap, WIDTH), thick)
+
+def get_clicked_pos(pos):
+    gap = WIDTH // 9
+    x, y = pos
+    row = y // gap
+    col = x // gap
+    return (row, col)
+
+def main():
+    selected = None
+    run = True
+    while run:
+        WIN.fill(WHITE)
+        draw_grid(WIN, board, selected)
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                pos = pygame.mouse.get_pos()
+                selected = get_clicked_pos(pos)
+
+            if event.type == pygame.KEYDOWN and selected:
+                row, col = selected
+                if board[row][col] == 0 and event.unicode.isdigit() and 1 <= int(event.unicode) <= 9:
+                    board[row][col] = int(event.unicode)
+
+        pygame.display.update()
+
+    pygame.quit()
+
+main()
