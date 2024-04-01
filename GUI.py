@@ -69,7 +69,8 @@ def main():
                 row, col = selected
                 if board[row][col] == 0 and event.unicode.isdigit() and 1 <= int(event.unicode) <= 9:
                     board[row][col] = int(event.unicode)
-
+            if event.key == pygame.K_s:
+                solve_sudoku(board)
         pygame.display.update()
 
     pygame.quit()
