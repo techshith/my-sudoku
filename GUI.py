@@ -1,4 +1,5 @@
 import pygame
+from sudokuSolverAlgo import *
 from sudokuSolverAlgo import solve_sudoku
 
 pygame.init()
@@ -65,12 +66,20 @@ def main():
                 pos = pygame.mouse.get_pos()
                 selected = get_clicked_pos(pos)
 
-            if event.type == pygame.KEYDOWN and selected:
-                row, col = selected
-                if board[row][col] == 0 and event.unicode.isdigit() and 1 <= int(event.unicode) <= 9:
-                    board[row][col] = int(event.unicode)
-            if event.key == pygame.K_s:
-                solve_sudoku(board)
+            if event.type == pygame.KEYDOWN:
+                if selected is not None:
+                    row, col = selected
+                    if (
+                        0 <= row < 9 and 0 <= col < 9 and
+                        board[row][col] == 0 and
+                        event.unicode.isdigit() and
+                        1 <= int(event.unicode) <= 9
+                    ):
+                        board[row][col] = int(event.unicode)
+
+                if event.key == pygame.K_s:
+                    solve_sudoku(board)
+
         pygame.display.update()
 
     pygame.quit()
